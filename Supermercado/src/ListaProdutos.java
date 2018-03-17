@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class login
+ * Servlet implementation class ListaProdutos
  */
-@WebServlet("/login")
-public class login extends HttpServlet {
+@WebServlet("/ListaProdutos")
+public class ListaProdutos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public login() {
+	public ListaProdutos() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,9 +34,19 @@ public class login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Recuperar parametros
-		String usuario = request.getParameter("nameusuario");
-		String senha = request.getParameter("senha");
+
+		// Obter objeto de resposta
+		PrintWriter out = response.getWriter();
+
+		// começa a montar HTML
+		out.println("<html><head>");
+		out.println("<meta charset=\"utf-8\" />\r\n" + "\r\n"
+				+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
+				+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
+				+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
+				+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
+				+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
+				+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n" + "");
 
 		// Conectar no banco de dados
 		try {
@@ -56,44 +66,26 @@ public class login extends HttpServlet {
 			 */
 
 			// Criando o SQL - Jeito melhor
-			String sql = "SELECT nomeusuario, senhausuario FROM supermercado.usuario WHERE nomeusuario = ? and senhausuario = ?";
+			String sql = "SELECT codigo, Descricao, fabricante, preco FROM supermercado.listaprodutos;";
 
 			// preparar o SQL para envio ao BD
 			PreparedStatement ps = conexao.prepareStatement(sql);
 
-			// Passar o valor de usuario
-			ps.setString(1, usuario);
-			// Passar o valor de senha
-			ps.setString(2, senha);
-
 			// Executando o SQL
 			ResultSet rs = ps.executeQuery();
 
-			// Obter objeto de resposta
-			PrintWriter out = response.getWriter();
+			while (rs.next()) {
 
-			// começa a montar HTML
-			out.println("<html><head>");
-			out.println("<meta charset=\"utf-8\" />\r\n" + "\r\n"
-					+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
-					+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
-					+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
-					+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
-					+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
-					+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n"
-					+ "");
+				Produtos pr = new Produtos(rs.getString("codigo"), rs.getString("Descricao"),
+						rs.getString("fabricante"), rs.getFloat("preco"));
 
-			// Verificar se usuario = senha
-			if (rs.first()) {
-				out.println("<h1> Login com sucesso</h1>");
+				out.println(" |" + pr.getCodigo() + " | " + pr.getDescricao() + " | " + pr.getPreco());
 				out.println("<br />");
-				out.println("<br />");
-				out.println("Bem vindo " + usuario);
-				out.println(
-						"<br /><br /><div>Para Acessar a lista de produdos acesse o link <a href=\"http://localhost:8080/Supermercado/ListaProdutos\">Produtos</a></div>");
-			} else {
-				out.println("<h1>Login sem sucesso</h1>");
+
+				out.println("");
+
 			}
+
 			out.println("</body></html>");
 
 			// Fechar o ResultSet
@@ -112,4 +104,5 @@ public class login extends HttpServlet {
 		}
 
 	}
+
 }
