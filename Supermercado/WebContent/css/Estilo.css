@@ -109,6 +109,12 @@
 
 
 	#tabela
+	#customers {
+	    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	    border-collapse: collapse;
+	    width: 100%;
+	}
+	
 	#customers td, #customers th {
 	    border: 1px solid #ddd;
 	    padding: 8px;
@@ -125,7 +131,6 @@
 	    background-color: #4CAF50;
 	    color: white;
 	}
-
 	
 	/* Responsive layout - when the screen is less than 450px wide, make the two columns stack on top of each other instead of next to each other */
 	@media screen and (max-width: 450px) {

@@ -1,3 +1,4 @@
+package br.com.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ListaProdutos
+ * Servlet implementation class login
  */
-@WebServlet("/ListaProdutos")
-public class ListaProdutos extends HttpServlet {
+@WebServlet("/login")
+public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ListaProdutos() {
+	public login() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,19 +35,9 @@ public class ListaProdutos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// Obter objeto de resposta
-		PrintWriter out = response.getWriter();
-
-		// começa a montar HTML
-		out.println("<html><head>");
-		out.println("<meta charset=\"utf-8\" />\r\n" + "\r\n"
-				+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
-				+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
-				+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
-				+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
-				+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
-				+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n" + "");
+		// Recuperar parametros
+		String usuario = request.getParameter("nameusuario");
+		String senha = request.getParameter("senha");
 
 		// Conectar no banco de dados
 		try {
@@ -67,35 +57,44 @@ public class ListaProdutos extends HttpServlet {
 			 */
 
 			// Criando o SQL - Jeito melhor
-			String sql = "SELECT codigo, Descricao, fabricante, preco FROM supermercado.listaprodutos;";
+			String sql = "SELECT nomeusuario, senhausuario FROM supermercado.usuario WHERE nomeusuario = ? and senhausuario = ?";
 
 			// preparar o SQL para envio ao BD
 			PreparedStatement ps = conexao.prepareStatement(sql);
 
+			// Passar o valor de usuario
+			ps.setString(1, usuario);
+			// Passar o valor de senha
+			ps.setString(2, senha);
+
 			// Executando o SQL
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<Produtos> produtos = new ArrayList<Produtos>();
+			// Obter objeto de resposta
+			PrintWriter out = response.getWriter();
 
-			while (rs.next()) {
+			// começa a montar HTML
+			out.println("<html><head>");
+			out.println("<meta charset=\"utf-8\" />\r\n" + "\r\n"
+					+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
+					+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
+					+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
+					+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
+					+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
+					+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n"
+					+ "");
 
-				Produtos pr = new Produtos(rs.getString("codigo"), rs.getString("Descricao"),
-						rs.getString("fabricante"), rs.getFloat("preco"));
-				/*
-				 * out.println(" |" + pr.getCodigo() + " | " + pr.getDescricao() + " | " +
-				 * pr.getPreco()); out.println("<br />");
-				 * 
-				 * out.println("");
-				 */
-
-				produtos.add(pr);
+			// Verificar se usuario = senha
+			if (rs.first()) {
+				out.println("<h1> Login com sucesso</h1>");
+				out.println("<br />");
+				out.println("<br />");
+				out.println("Bem vindo " + usuario);
+				out.println(
+						"<br /><br /><div>Para Acessar a lista de produdos acesse o link <a href=\"http://localhost:8080/Supermercado/ListaProdutos\">Produtos</a></div>");
+			} else {
+				out.println("<h1>Login sem sucesso</h1>");
 			}
-
-			request.setAttribute("produtos", produtos);
-			// response.sendRedirect("ListaProdutos.jsp");
-			getServletConfig().getServletContext().getRequestDispatcher("/ListaProdutos.jsp").forward(request,
-					response);
-
 			out.println("</body></html>");
 
 			// Fechar o ResultSet
@@ -114,5 +113,4 @@ public class ListaProdutos extends HttpServlet {
 		}
 
 	}
-
 }
