@@ -46,7 +46,7 @@ public class ListaProdutos extends HttpServlet {
 				+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
 				+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
 				+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
-				+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
+				+ "		  <li><a class=\"active\" href=\"http://localhost:8080/Supermercado/Index.html\">Home</a></li>\r\n"
 				+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
 				+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n" + "");
 
@@ -76,12 +76,12 @@ public class ListaProdutos extends HttpServlet {
 			// Executando o SQL
 			ResultSet rs = ps.executeQuery();
 
-			ArrayList<Produtos> produtos = new ArrayList<Produtos>();
+			ArrayList<Produto> produtos = new ArrayList<Produto>();
 
 			while (rs.next()) {
 
-				Produtos pr = new Produtos(rs.getString("codigo"), rs.getString("Descricao"),
-						rs.getString("fabricante"), rs.getFloat("preco"));
+				Produto pr = new Produto(rs.getString("codigo"), rs.getString("Descricao"), rs.getString("fabricante"),
+						rs.getFloat("preco"));
 				/*
 				 * out.println(" |" + pr.getCodigo() + " | " + pr.getDescricao() + " | " +
 				 * pr.getPreco()); out.println("<br />");

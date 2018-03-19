@@ -16,8 +16,8 @@
 
 	<div>
 		<ul>
-		  <li><a class="active" href="">Home</a></li>
-		  <li><a href="#login">Login</a></li>
+		  <li><a class="active" href="http://localhost:8080/Supermercado/Index.html">Home</a></li>
+		  <li><a href="http://localhost:8080/Supermercado/TelaLogin.html">Login</a></li>
 		  <li><a href="#cadastro">Cadastro</a></li>
 		</ul>
 	</div>
@@ -35,7 +35,7 @@
 				<th>Preço</th>
 			</tr>
 		   <%
-				List<Produtos> produtos = (List<Produtos>) request.getAttribute("produtos");
+				List<Produto> produtos = (List<Produto>) request.getAttribute("produtos");
 				for (int i = 0; i< produtos.size();i++){
 
 			%>

@@ -1,5 +1,6 @@
+package br.com.model;
 
-public class Produtos {
+public class Produto {
 
 	private String codigo;
 	private String descricao;
@@ -14,7 +15,7 @@ public class Produtos {
 	}
 
 	// Metodo Construtor
-	public Produtos(String codigo, String descricao, String fabricante, float preco) {
+	public Produto(String codigo, String descricao, String fabricante, float preco) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;

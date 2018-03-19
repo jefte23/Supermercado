@@ -79,8 +79,8 @@ public class login extends HttpServlet {
 					+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
 					+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
 					+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
-					+ "		  <li><a class=\"active\" href=\"\">Home</a></li>\r\n"
-					+ "		  <li><a href=\"#login\">Login</a></li>\r\n"
+					+ "		  <li><a class=\"active\" href=\"http://localhost:8080/Supermercado/Index.html\">Home</a></li>\r\n"
+					+ "		  <li><a href=\"http://localhost:8080/Supermercado/TelaLogin.html\">Login</a></li>\r\n"
 					+ "		  <li><a href=\"#cadastro\">Cadastro</a></li>\r\n" + "		</ul>\r\n" + "	</div>\r\n"
 					+ "");
 
