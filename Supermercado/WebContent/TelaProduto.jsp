@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/Estilo.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Lista de produtos</title>
+	<title>Produtos</title>
 </head>
 <body>
 
@@ -23,29 +23,39 @@
 	</div>
 
 
-<h1 align="center">Lista de Produtos</h1>
-
-
-	<table id="customers">
+<h1 align="center">Produtos</h1>
+ 	
+ 		<table id="customers">
 			<tr>
-			    <th>#</th>
-				<th>idProduto</th>
 				<th>Codigo</th>
+				<th>Fabricante</th>
+				<th>Produto</th>
+				<th>Preço</th>
 				
 			</tr>
-		   <%
-				List<Produto> produtos = (List<Produto>) request.getAttribute("produtos");
+ 		 	<%
+	 		 	
+ 		 		List<Produto> produtos = (List<Produto>) request.getAttribute("produto");
 				for (int i = 0; i< produtos.size();i++){
-			%>
-			<tr>
- 		      	<td align="center"> <%=i+1 %> </td>	
-				<td align="center"> <a target="_blank" href="DetalhaProduto?codigo=<%=produtos.get(i).getCodigo() %>"><%=produtos.get(i).getCodigo() %></a>  </td>
+					
+							 	
+		    	//Produto produto = (Produto) request.getAttribute("produto");
+		    
+ 		 	%> 
+		     
+      		<tr>
+		
+				<td align="center"> <%=produtos.get(i).getCodigo() %> </td>
+				<td align="center"> <%=produtos.get(i).getFabricante() %> </td>
 				<td align="center"> <%=produtos.get(i).getDescricao() %> </td>
+				<td align="center"> <%=produtos.get(i).getPreco() %> </td>
+		
 			</tr>
- 			<%
-		 	  }
- 		%>
-	</table>	
-
+			
+			<%
+				}
+			%>
+		</table>
+		
 </body>
 </html>

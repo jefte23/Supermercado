@@ -7,11 +7,10 @@ public class Produto {
 	private String fabricante;
 	private float preco;
 
-	// Metodo ToString
 	@Override
 	public String toString() {
-		return "Produtos [codigo=" + codigo + ", descricao=" + descricao + ", fabricante=" + fabricante + ", preco="
-				+ preco + "]";
+		return "Codigo=" + codigo + ", descricao=" + descricao + ", fabricante=" + fabricante + ", preco=" + preco
+				+ "]";
 	}
 
 	// Metodo Construtor
@@ -24,6 +23,7 @@ public class Produto {
 	}
 
 	// Metodos Get's e Set's
+
 	public String getCodigo() {
 		return codigo;
 	}
