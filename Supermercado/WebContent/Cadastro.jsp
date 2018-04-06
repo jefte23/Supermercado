@@ -19,43 +19,15 @@
 		  <li><a class="active" href="http://localhost:8080/Supermercado/index.html">Home</a></li>
 		  <li><a href="http://localhost:8080/Supermercado/TelaLogin.html">Login</a></li>
 		  <li><a href="http://localhost:8080/Supermercado/Cadastro.jsp">Cadastro</a></li>
-		</ul>
+		  </ul>
 	</div>
 
 
-<h1 align="center">Produtos</h1>
- 	
- 		<table id="customers">
-			<tr>
-				<th>Codigo</th>
-				<th>Fabricante</th>
-				<th>Produto</th>
-				<th>Preço</th>
-				
-			</tr>
- 		 	<%
-	 		 	
- 		 		List<Produto> produtos = (List<Produto>) request.getAttribute("produto");
-				for (int i = 0; i< produtos.size();i++){
-					
-							 	
-		    	//Produto produto = (Produto) request.getAttribute("produto");
-		    
- 		 	%> 
-		     
-      		<tr>
-		
-				<td align="center"> <%=produtos.get(i).getCodigo() %> </td>
-				<td align="center"> <%=produtos.get(i).getFabricante() %> </td>
-				<td align="center"> <%=produtos.get(i).getDescricao() %> </td>
-				<td align="center"> <%=produtos.get(i).getPreco() %> </td>
-		
-			</tr>
-			
-			<%
-				}
-			%>
-		</table>
-		
+<h2 align="center"> Bem vindo </h2>
+
+<h3 align="center"> Cadastrar <a href="#">Usuário</a></h3>
+<h3 align="center"> Cadastrar <a href="http://localhost:8080/Supermercado/CadastroProduto.html">Produto</a></h3>
+
+
 </body>
 </html>

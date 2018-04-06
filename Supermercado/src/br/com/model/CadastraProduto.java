@@ -1,7 +1,6 @@
 package br.com.model;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.DriverManager;
 
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 /**
- * Servlet implementation class ExcluiProduto
+ * Servlet implementation class CadastraProduto
  */
-@WebServlet("/ExcluiProduto")
-public class ExcluiProduto extends HttpServlet {
+@WebServlet("/CadastraProduto")
+public class CadastraProduto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ExcluiProduto() {
+	public CadastraProduto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,24 +33,11 @@ public class ExcluiProduto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// Obter objeto de resposta
-		PrintWriter out = response.getWriter();
-
-		String msg = " OK !";
-
-		// começa a montar HTML
-		out.println("<html><head>");
-		out.println("<meta charset=\"utf-8\" />\r\n" + "\r\n"
-				+ "	<link rel=\"stylesheet\" type=\"text/css\" href=\"css/Estilo.css\" />\r\n" + "\r\n"
-				+ "<title>Login</title>\r\n" + "\r\n" + "</head>\r\n" + "<body>\r\n" + "\r\n" + "<div>\r\n" + "\r\n"
-				+ "	\r\n" + "	<div>\r\n" + "		<ul>\r\n"
-				+ "		  <li><a class=\"active\" href=\"http://localhost:8080/Supermercado/index.html\">Home</a></li>\r\n"
-				+ "		  <li><a href=\"http://localhost:8080/Supermercado/TelaLogin.html\">Login</a></li>\r\n"
-				+ "		  <li><a href=\"http://localhost:8080/Supermercado/Cadastro.jsp\">Cadastro</a></li>\r\n"
-				+ "		</ul>\r\n" + "	</div>\r\n" + "");
-
+		// Recuperar parametros
 		String codigo = request.getParameter("codigo");
+		String descricao = request.getParameter("Descricao");
+		String fabricante = request.getParameter("fabricante");
+		float preco = Float.parseFloat(request.getParameter("preco"));
 
 		try {
 			// Referenciar o driver JDBV
@@ -64,15 +50,16 @@ public class ExcluiProduto extends HttpServlet {
 			Connection conexao = (Connection) DriverManager.getConnection(url, username, password);
 
 			// Criando o SQL - Jeito melhor
-			String sql = "DELETE FROM supermercado.listaprodutos WHERE codigo = ?";
+			String sql = "INSERT INTO supermercado.listaprodutos(codigo,Descricao,fabricante,preco) VALUES(?,?,?,?)";
 
 			// preparar o SQL para envio ao BD
 			PreparedStatement ps = (PreparedStatement) conexao.prepareStatement(sql);
 			ps.setString(1, codigo);
+			ps.setString(2, descricao);
+			ps.setString(3, fabricante);
+			ps.setFloat(4, preco);
 
 			System.out.println(ps.executeUpdate());
-
-			out.println("</body> " + codigo + "</html>");
 
 			// Fechar o Cps
 			ps.close();
@@ -80,15 +67,14 @@ public class ExcluiProduto extends HttpServlet {
 			// Fechar o Connection
 			conexao.close();
 
-			request.setAttribute("msg", msg);
 			getServletConfig().getServletContext().getRequestDispatcher("/ListaProdutos").forward(request, response);
+
 		} catch (Exception e) {
-			msg = "ERRO";
-			request.setAttribute("msg", msg);
+
 			e.printStackTrace();
 			getServletConfig().getServletContext().getRequestDispatcher("/ListaProdutos").forward(request, response);
 
 		}
-		out.println("</body></html>");
 	}
+
 }

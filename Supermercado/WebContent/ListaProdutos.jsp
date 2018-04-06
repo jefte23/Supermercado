@@ -17,9 +17,9 @@
 
 	<div>
 		<ul>
-		  <li><a class="active" href="http://localhost:8080/Supermercado/Index.html">Home</a></li>
+		  <li><a class="active" href="http://localhost:8080/Supermercado/index.html">Home</a></li>
 		  <li><a href="http://localhost:8080/Supermercado/TelaLogin.html">Login</a></li>
-		  <li><a href="#cadastro">Cadastro</a></li>
+		  <li><a href="http://localhost:8080/Supermercado/Cadastro.jsp">Cadastro</a></li>
 		</ul>
 	</div>
 
@@ -27,7 +27,7 @@
 <h1 align="center">Lista de Produtos</h1>
 
   <%
-    String msg = (String) request.getAttribute("msg");
+    String msg = (String) request.getAttribute("Excluido com sucesso");
   
     out.print(msg != null ? msg : "");
   %>

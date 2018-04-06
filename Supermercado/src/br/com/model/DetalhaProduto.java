@@ -52,12 +52,6 @@ public class DetalhaProduto extends HttpServlet {
 			// Realizar conexão com banco de dados
 			Connection conexao = DriverManager.getConnection(url, username, password);
 
-			// Criando o SQL - Jeito Ruim
-			/*
-			 * String sql = "SELECT nomeusuario, senhausuario FROM supermercado.usuario" +
-			 * "WHERE nomeusuario = '" + usuario + "' and senhausuario = '" + senha + "'";
-			 */
-
 			// Criando o SQL - Jeito melhor
 			String sql = "SELECT * FROM supermercado.listaprodutos WHERE codigo = ?";
 
