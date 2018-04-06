@@ -1,3 +1,4 @@
+<%@page import="com.sun.xml.internal.ws.api.ha.StickyFeature"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
 <%@page import="br.com.model.*"%>
@@ -25,12 +26,17 @@
 
 <h1 align="center">Lista de Produtos</h1>
 
-
+  <%
+    String msg = (String) request.getAttribute("msg");
+  
+    out.print(msg != null ? msg : "");
+  %>
 	<table id="customers">
 			<tr>
 			    <th>#</th>
-				<th>idProduto</th>
-				<th>Codigo</th>
+				<th>Código</th>
+				<th>Produto</th>
+				<th>Ações</th>
 				
 			</tr>
 		   <%
@@ -41,6 +47,7 @@
  		      	<td align="center"> <%=i+1 %> </td>	
 				<td align="center"> <a target="_blank" href="DetalhaProduto?codigo=<%=produtos.get(i).getCodigo() %>"><%=produtos.get(i).getCodigo() %></a>  </td>
 				<td align="center"> <%=produtos.get(i).getDescricao() %> </td>
+				<td align="center"> <a  href="ExcluiProduto?codigo=<%=produtos.get(i).getCodigo() %>">Excluir</a></td>
 			</tr>
  			<%
 		 	  }
