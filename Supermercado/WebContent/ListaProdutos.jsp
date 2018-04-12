@@ -12,7 +12,16 @@
 	<link rel="stylesheet" type="text/css" href="css/Estilo.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Lista de produtos</title>
-</head>
+<script type="text/javascript">
+      
+          
+        function msgExcluido(){
+          alert('Produto foi excluido com exito')
+        }
+
+
+    </script>	
+
 <body>
 
 	<div>
@@ -28,7 +37,6 @@
 
   <%
     String msg = (String) request.getAttribute("Excluido com sucesso");
-  
     out.print(msg != null ? msg : "");
   %>
 	<table id="customers">
@@ -47,7 +55,7 @@
  		      	<td align="center"> <%=i+1 %> </td>	
 				<td align="center"> <a target="_blank" href="DetalhaProduto?codigo=<%=produtos.get(i).getCodigo() %>"><%=produtos.get(i).getCodigo() %></a>  </td>
 				<td align="center"> <%=produtos.get(i).getDescricao() %> </td>
-				<td align="center"> <a  href="ExcluiProduto?codigo=<%=produtos.get(i).getCodigo() %>">Excluir</a></td>
+				<td align="center"> <a  onclick="msgExcluido()" href="ExcluiProduto?codigo=<%=produtos.get(i).getCodigo() %>">Excluir</a></td>
 			</tr>
  			<%
 		 	  }
